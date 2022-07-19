@@ -1,0 +1,1 @@
+export default async (fn: Function) => await fn();

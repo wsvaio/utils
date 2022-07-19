@@ -1,0 +1,1 @@
+export default (fn: Promise<any>) => fn.then(data => [null, data]).catch(err => [err, null]);

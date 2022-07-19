@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "strict": true,
+    "moduleResolution": "node",
+    "noImplicitAny": false,
+    "lib": [
+      "esnext",
+      "dom"
+    ],
+  },
+  "include": [
+    "./**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "垃圾桶",
+  ]
+}

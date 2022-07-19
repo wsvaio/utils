@@ -1,0 +1,40 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+	-webkit-text-size-adjust: none;
+	box-sizing: border-box;
+}
+
+body {
+	line-height: 1.5;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+a{
+	color: #333;
+	text-decoration: none;
+}
+
+a:hover{
+	color: #777;
+	text-decoration: none;
+}
+
+img {
+	display: block;
+}
+svg {
+	display: block;
+}
+

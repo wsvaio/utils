@@ -1,0 +1,42 @@
+{
+  "name": "wsvaio",
+  "version": "2.10.34",
+  "author": "wsvaio",
+  "license": "MIT",
+  "description": "常用utils封装",
+  "type": "module",
+  "main": "./index.ts",
+  "module": "./index.ts",
+  "exports": {
+    ".": {
+      "import": "./index.ts"
+    }
+  },
+  "files": [
+    "utils",
+    "styles",
+    "index.ts"
+  ],
+  "keywords": [
+    "ws",
+    "wsvaio",
+    "utils",
+    "createAPI"
+  ],
+  "scripts": {
+    "test": "vitest"
+  },
+  "bugs": {
+    "url": "https://github.com/wsvaio/wsvaio/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wsvaio/wsvaio.git"
+  },
+  "homepage": "https://github.com/wsvaio/wsvaio#readme",
+  "devDependencies": {
+    "@types/node": "^18.0.4",
+    "typescript": "^4.7.4",
+    "vitest": "^0.18.0"
+  }
+}
