@@ -19,4 +19,4 @@ export { default as trying } from "./utils/trying";
 
 export { default as createEventBus } from "./utils/createEventBus";
 
-export { default as exitFullscreen } from "./utils/exitFullscreen";
+// export { default as exitFullscreen } from "./utils/exitFullscreen";
