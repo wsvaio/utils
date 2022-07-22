@@ -19,4 +19,6 @@ export { default as trying } from "./utils/trying";
 
 export { default as createEventBus } from "./utils/createEventBus";
 
+export { default as sleep } from "./utils/sleep";
+
 // export { default as exitFullscreen } from "./utils/exitFullscreen";
