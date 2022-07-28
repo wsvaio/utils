@@ -107,7 +107,7 @@ export function createAPI<custom = {}>(_ctx = <ctx<custom>>{}, ...plugins: plugi
       ctx.response ??= <Response>{ ok: false, status: 400, statusText: "Bad Request" };
       ctx.body ??= {};
       ctx.data ??= { message: ctx.message };
-      const data = Array.isArray(ctx.data) ? { data: ctx.data } : ctx.data;
+      const data = (typeof ctx.data  != "object" || Array.isArray(ctx.data)) ? { data: ctx.data } : ctx.data;
       Object.setPrototypeOf(data, new function result() { });
       Object.setPrototypeOf(ctx.body, new function params() { });
       Object.setPrototypeOf(ctx, new function context() { });
