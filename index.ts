@@ -4,7 +4,7 @@ export { dateFormat, timeFormat } from "./utils/formats";
 
 export { createCompose, middleware, onion, plugins } from "./utils/createCompose";
 
-export { assign, clearObj, merge } from "./utils/objUtils";
+export { default as merge } from "./utils/merge";
 
 export { default as Progress } from "./utils/Progress";
 export { default as saveAs } from "./utils/saveAs";
