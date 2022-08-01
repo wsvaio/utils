@@ -158,4 +158,8 @@ export default function merge<T>(obj1: T, obj2 = <Partial<T> & { [k: string]: an
 
 ```
 
-...
+...  
+
+
+  
+[![OSCS Status](https://www.oscs1024.com/platform/badge/wsvaio/utils.svg?size=large)](https://www.oscs1024.com/project/wsvaio/utils?ref=badge_large)
