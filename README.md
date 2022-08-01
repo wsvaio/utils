@@ -1,8 +1,7 @@
 # 常用工具函数
-常用工具函数
 [![OSCS Status](https://www.oscs1024.com/platform/badge/wsvaio/utils.svg?size=small)](https://www.oscs1024.com/project/wsvaio/utils?ref=badge_small)
 
-### createAPI
+## createAPI
 现代浏览器都支持了fetch方法
 ```typescript
 fetch(url).then(data => data.json()).(data => console.log(data));
@@ -15,7 +14,7 @@ fetch方法本身非常简洁，日常使用中肯定是要进行包装的
 
 
 
-#### Example
+### Example
 ```typescript
 
 // 从头到尾其实就是ctx这一个对象，所有重要的的属性都在这个对象上，也可以自定义属性，createAPI提供泛型支持
@@ -73,7 +72,7 @@ final(async ctx => ctx.error
 
 
 ```
-#### Config
+### Config
 ```typescript
 // 总环境类型 custom: 自定义属性 params: body query param 的类型
 export type ctx<custom = {}, params = {}> = {
@@ -93,7 +92,7 @@ export type ctx<custom = {}, params = {}> = {
 ```
 
 
-#### Use
+### Use
 ```typescript
 // src/api/index.ts
 import { post } from "@/api/requets";
@@ -128,7 +127,7 @@ post("xxx")().then(data => console.log(data));
 
 ```
 
-### merge
+## merge
 在默认配置下几乎等同于Object.assign  
 在typescript下obj2会有obj1的属性提示  
 ```typescript
