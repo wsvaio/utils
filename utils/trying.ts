@@ -1,1 +1,1 @@
-export default async (fn: Function) => await fn();
+export default async (fn: () => any) => await fn();

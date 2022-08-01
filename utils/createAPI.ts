@@ -1,4 +1,4 @@
-import { merge } from "./objUtils";
+import merge from "./merge";
 import { dateFormat } from "./formats";
 import { createCompose, middleware, plugins } from "./createCompose";
 import toString from "./toString";
@@ -49,7 +49,7 @@ export function createAPI<custom = {}>(_ctx = <ctx<custom>>{}, ...plugins: plugi
   if (plugins.length != 0) plugin(...plugins);
   else {
     // 合并全局与局部配置
-    useList.push(async ctx => merge(ctx, _ctx, Infinity));
+    useList.push(async ctx => merge(ctx, _ctx, { deep: Infinity, overwrite: false, del: false }));
     // 超时中断请求
     useList.push(async ctx => {
       if (!ctx.timeout) return;
@@ -143,7 +143,7 @@ export function createAPI<custom = {}>(_ctx = <ctx<custom>>{}, ...plugins: plugi
 
   return {
 
-    extendAPI: <T = {}>(ctx = <ctx<Partial<custom> & T>>{}) => createAPI<custom & T>(merge(ctx, _ctx, Infinity), { useList, errorList, finalList }),
+    extendAPI: <T = {}>(ctx = <ctx<Partial<custom> & T>>{}) => createAPI<custom & T>(merge<any>(ctx, _ctx, { deep: Infinity, overwrite: false, del: false }), { useList, errorList, finalList }),
 
     error, final,
     before: (...middleware: middleware<ctx<custom>>[]) => {

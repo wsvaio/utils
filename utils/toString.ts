@@ -1,1 +1,1 @@
-export default (obj: any) => Object.prototype.toString.call(obj);
+export default obj => Object.prototype.toString.call(obj);
