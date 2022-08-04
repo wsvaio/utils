@@ -1,5 +1,5 @@
 // middleware 执行器
-export type middleware<ctx = any> = (ctx: ctx, next: Function) => Promise<any>;
+export type middleware<ctx = any> = (ctx: ctx, next: () => Promise<any>) => Promise<any>;
 export type plugins<ctx = any> = { useList: middleware<ctx>[], errorList: middleware<ctx & { error: Error; }>[], finalList: middleware<ctx & { error?: Error; }>[]; }[];
 // 洋葱模型运行机制
 export async function onion(ctx: any, ...middleware: middleware[]) {
@@ -24,7 +24,6 @@ export function createCompose<ctx = any>() {
       item.errorList.forEach(fn => errorList.push(fn));
       item.finalList.forEach(fn => finalList.push(fn));
     }
-    // console.log(useList, errorList, finalList);
   }
   async function run(ctx: ctx) {
     try {

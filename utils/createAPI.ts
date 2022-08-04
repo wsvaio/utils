@@ -11,7 +11,7 @@ export type ctx<custom = {}, params = {}> = {
   timeout?: number, // 超时中断的时间
   url?: string, // 请求地址
   baseURL?: string, // 根地址
-  body?: Partial<params> & { [k: string]: any; } | string, // 请求体
+  body?: Partial<params> & { [k: string]: any; } | string | FormData | Blob | ArrayBuffer, // 请求体
   query?: Partial<params> & { [k: string]: any; }, // 请求search参数
   param?: Partial<params> & { [k: string]: any; }, // 请求参数
   error?: Partial<Error & ctx<custom, params>>, // 错误
@@ -22,25 +22,9 @@ export type ctx<custom = {}, params = {}> = {
 } & Omit<RequestInit, "body"> & custom; // RequestInit fetch配置 custom 自定义配置
 
 
+
 // 发送请求，核心中间件
-async function middle(ctx) {
-  // 删除get或head的请求体（这些方法不允许设置请求体）否则格式化请求体为json
-
-  ["get", "head"].includes((ctx.method ?? "get").toLowerCase())
-    ? delete ctx.body
-    : Object.assign(ctx, {
-      body: await trying(() => {
-        if (typeof ctx.body == "string") return ctx.body;
-        else return JSON.stringify(ctx.body);
-      }).catch(() => ctx.body)
-    });
-
-  ctx.response = await fetch((ctx.baseURL ?? "") + ctx.url, <object>ctx);
-  // 恢复请求体的格式为对象
-
-  ["get", "head"].includes((ctx.method ?? "").toLowerCase())
-    || (ctx.body = await trying(() => JSON.parse(ctx.body)).catch(() => ctx.body));
-}
+const middle = async ctx => ctx.response = await fetch((ctx.baseURL ?? "") + ctx.url, <object>ctx);
 
 export function createAPI<custom = {}>(_ctx = <ctx<custom>>{}, ...plugins: plugins<ctx<custom>>) {
 
@@ -61,9 +45,14 @@ export function createAPI<custom = {}>(_ctx = <ctx<custom>>{}, ...plugins: plugi
     useList.push(async ctx => ctx.headers ??= {});
 
     // 添加Content-Type（因为要转换为JSON，fetch默认对字符串设置为text/plain）
-    useList.push(async ctx => {
-      if (toString(ctx.body) != "[object Object]" && toString(ctx.body) != "[object Array]") return;
-      ctx.headers!["Content-Type"] = "application/json;charset=UTF-8";
+    useList.push(async (ctx, next) => {
+      if (!["[object Object]", "[object Array]"].includes(toString(ctx.body))) return await next();
+      await trying(() => {
+        ctx.body = JSON.stringify(ctx.body);
+        ctx.headers!["Content-Type"] = "application/json;charset=UTF-8";
+      }).catch(() => {});
+      await next();
+      ctx.body = await trying(() => JSON.parse(<string>ctx.body)).catch(() => ctx.body);
     });
 
     // 拼接请求url
@@ -71,7 +60,7 @@ export function createAPI<custom = {}>(_ctx = <ctx<custom>>{}, ...plugins: plugi
       const { query, param } = ctx;
       const url = new URL(ctx.url ?? "", "http://localhost");
       if (query) for (let [k, v] of Object.entries<any>(query)) url.searchParams.append(k, v);
-      if (param) for (let [k, v] of Object.entries<any>(param)) url.pathname = url.pathname.replace(`:${k}`, v);;
+      if (param) for (let [k, v] of Object.entries<any>(param)) url.pathname = url.pathname.replace(`:${k}`, v);
       ctx.url = url.pathname + url.search + url.hash;
     });
 
