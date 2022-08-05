@@ -7,7 +7,7 @@
  */
 
 // 递归可选
-type DeepPartial<T> = T extends Object
+export type DeepPartial<T> = T extends Object
 ? { [P in keyof T]?: DeepPartial<T[P]> }
 : T;
 

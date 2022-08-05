@@ -1,5 +1,5 @@
-export default function exitFullscreen(elem) {
-  elem = elem || document;
+export default (elem?) => {
+  elem ??= document;
   if (elem.cancelFullScreen) {
     elem.cancelFullScreen();
   } else if (elem.mozCancelFullScreen) {
