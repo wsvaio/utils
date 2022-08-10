@@ -22,3 +22,4 @@ export { default as createEventBus } from "./utils/createEventBus";
 export { default as sleep } from "./utils/sleep";
 
 export { default as exitFullscreen } from "./utils/exitFullscreen";
+export { default as remove } from "./utils/remove";

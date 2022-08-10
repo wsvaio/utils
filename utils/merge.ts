@@ -26,6 +26,6 @@ export default function merge<T>(obj1: T, obj2 = <DeepPartial<T> | T>{}, { deep 
       obj1[key] = val;
     }
   }
-  return rtn ? "" : obj1;
+  return rtn ? obj1 : "";
 }
 

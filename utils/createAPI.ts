@@ -45,14 +45,12 @@ export function createAPI<custom = {}>(_ctx = <ctx<custom>>{}, ...plugins: plugi
     useList.push(async ctx => ctx.headers ??= {});
 
     // 添加Content-Type（因为要转换为JSON，fetch默认对字符串设置为text/plain）
-    useList.push(async (ctx, next) => {
-      if (!["[object Object]", "[object Array]"].includes(toString(ctx.body))) return await next();
+    useList.push(async ctx => {
+      if (!["[object Object]", "[object Array]"].includes(toString(ctx.body))) return;
       await trying(() => {
         ctx.body = JSON.stringify(ctx.body);
         ctx.headers!["Content-Type"] = "application/json;charset=UTF-8";
       }).catch(() => {});
-      await next();
-      ctx.body = await trying(() => JSON.parse(<string>ctx.body)).catch(() => ctx.body);
     });
 
     // 拼接请求url
@@ -66,6 +64,12 @@ export function createAPI<custom = {}>(_ctx = <ctx<custom>>{}, ...plugins: plugi
 
     // ************************************* 发送请求（核心中间件，命名为 middle， 所有前置都在此之前，后置都在此之后）*************************************
     useList.push(middle);
+
+
+    useList.push(async ctx => {
+      if (!["[object String]"].includes(toString(ctx.body))) return;
+      ctx.body = await trying(() => JSON.parse(<string>ctx.body)).catch(() => ctx.body);
+    });
 
     // 格式化结果
     useList.push(async ctx => {
