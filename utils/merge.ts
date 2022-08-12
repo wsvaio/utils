@@ -18,7 +18,7 @@ export default function merge<T>(obj1: T, obj2 = <DeepPartial<T> | T>{}, { deep 
     for (const key of dels) delete obj1[key];
   }
   for (const [key, val] of Object.entries(obj2)) {
-    if (!overwrite && (obj1[key] ?? false) !== false) continue;
+    if (!overwrite && ![null, undefined].includes(obj1[key])) continue;
     if (typeof val == "object" && deep > 0) {
       (typeof obj1[key] == "object") || (obj1[key] = {});
       merge(obj1[key], val, { deep, overwrite, del, rtn });

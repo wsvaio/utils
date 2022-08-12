@@ -44,6 +44,20 @@ export function createAPI<custom = {}>(_ctx = <ctx<custom>>{}, ...plugins: plugi
     // 初始化headers
     useList.push(async ctx => ctx.headers ??= {});
 
+    // 拼接请求url
+    useList.push(async ctx => {
+      const { query, param={} } = ctx;
+      const url = new URL(ctx.url ?? "", "http://localhost");
+      if (query) for (const [k, v] of Object.entries<any>(query)) url.searchParams.append(k, v);
+
+      const body: any = toString(ctx.body) == "[object Object]" ? ctx.body : {};
+      const keys = url.pathname.split("/").filter(item => item.startsWith(":")).map(item => item.substring(1));
+      for (const key of keys) {
+        url.pathname = url.pathname.replace(`:${key}`, param[key] ?? body[key]);
+      }
+      ctx.url = url.pathname + url.search + url.hash;
+    });
+
     // 添加Content-Type（因为要转换为JSON，fetch默认对字符串设置为text/plain）
     useList.push(async ctx => {
       if (!["[object Object]", "[object Array]"].includes(toString(ctx.body))) return;
@@ -51,15 +65,6 @@ export function createAPI<custom = {}>(_ctx = <ctx<custom>>{}, ...plugins: plugi
         ctx.body = JSON.stringify(ctx.body);
         ctx.headers!["Content-Type"] = "application/json;charset=UTF-8";
       }).catch(() => {});
-    });
-
-    // 拼接请求url
-    useList.push(async ctx => {
-      const { query, param } = ctx;
-      const url = new URL(ctx.url ?? "", "http://localhost");
-      if (query) for (let [k, v] of Object.entries<any>(query)) url.searchParams.append(k, v);
-      if (param) for (let [k, v] of Object.entries<any>(param)) url.pathname = url.pathname.replace(`:${k}`, v);
-      ctx.url = url.pathname + url.search + url.hash;
     });
 
     // ************************************* 发送请求（核心中间件，命名为 middle， 所有前置都在此之前，后置都在此之后）*************************************

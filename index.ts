@@ -23,3 +23,8 @@ export { default as sleep } from "./utils/sleep";
 
 export { default as exitFullscreen } from "./utils/exitFullscreen";
 export { default as remove } from "./utils/remove";
+
+export const rtn = <T>(o: T) => o;
+
+export {default as omit} from "./utils/omit";
+export {default as pick} from "./utils/pick";
