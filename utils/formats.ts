@@ -35,7 +35,7 @@ export function timeFormat(seconds: number, format = "HH:mm:ss") {
 }
 
 // 日期格式化
-export function dateFormat(date: string | Date | number | null | undefined, format = "yyyy-MM-dd HH:mm:ss") {
+export function dateFormat(date: string | Date | number | null | undefined, format = "yyyy/MM/dd HH:mm:ss") {
   // sDate = sDate.replace("T", " ").replace("Z", " ").replaceAll("-", "/");
   if (typeof date == "string") date = date.replace(/-/g, "/").replace("T", " ").replace("Z", " ");
   date = new Date(date || Date.now());
