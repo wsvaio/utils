@@ -38,7 +38,8 @@ export function timeFormat(seconds: number, format = "HH:mm:ss") {
 export function dateFormat(date: string | Date | number | null | undefined, format = "yyyy/MM/dd HH:mm:ss") {
   // sDate = sDate.replace("T", " ").replace("Z", " ").replaceAll("-", "/");
   if (typeof date == "string") date = date.replace(/-/g, "/").replace("T", " ").replace("Z", " ");
-  date = new Date(date || Date.now());
+  if (!date) return "";
+  date = new Date(date);
   const o = {
     "Y": date.getFullYear(),
     "y": date.getFullYear(),

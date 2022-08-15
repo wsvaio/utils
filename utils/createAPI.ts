@@ -48,7 +48,13 @@ export function createAPI<custom = {}>(_ctx = <ctx<custom>>{}, ...plugins: plugi
     useList.push(async ctx => {
       const { query, param={} } = ctx;
       const url = new URL(ctx.url ?? "", "http://localhost");
-      if (query) for (const [k, v] of Object.entries<any>(query)) url.searchParams.append(k, v);
+      if (query) for (const [k, v] of Object.entries(query)) {
+        if (Array.isArray(v)) {
+          for (const item of v) {
+            url.searchParams.append(k, item);
+          }
+        } else url.searchParams.append(k, v);
+      }
 
       const body: any = toString(ctx.body) == "[object Object]" ? ctx.body : {};
       const keys = url.pathname.split("/").filter(item => item.startsWith(":")).map(item => item.substring(1));
