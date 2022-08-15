@@ -109,7 +109,7 @@ export function createAPI<custom = {}>(_ctx = <ctx<custom>>{}, ...plugins: plugi
       Object.setPrototypeOf(data, new function result() { });
       Object.setPrototypeOf(ctx.body, new function params() { });
       Object.setPrototypeOf(ctx, new function context() { });
-      console.groupCollapsed(`%c ${dateFormat(String(new Date()))} %c ${ctx.method} %c ${ctx.url} %c ${ctx.response.status} ${ctx.response.statusText} `,
+      console.groupCollapsed(`%c ${dateFormat(Date.now())} %c ${ctx.method} %c ${ctx.url} %c ${ctx.response.status} ${ctx.response.statusText} `,
         "font-size: 16px; font-weight: 100; color: white; background: #909399; border-radius: 3px 0 0 3px;",
         "font-size: 16px; font-weight: 100; color: white; background: #E6A23C;",
         "font-size: 16px; font-weight: 100; color: white; background: #409EFF;",
