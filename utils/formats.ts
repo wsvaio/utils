@@ -1,5 +1,5 @@
 // 时间格式化
-export function timeFormat(seconds: number, format = "HH:mm:ss") {
+export function timeFormat(seconds: number, format = "hh:mm:ss") {
 
   const o = {
     "h": 0,
