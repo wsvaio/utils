@@ -1,6 +1,6 @@
 // 时间格式化
 export function timeFormat(seconds: number, format = "hh:mm:ss") {
-
+  seconds ||= 0;
   const o = {
     "h": 0,
     "m": 0,
@@ -37,8 +37,8 @@ export function timeFormat(seconds: number, format = "hh:mm:ss") {
 // 日期格式化
 export function dateFormat(date: string | Date | number | null | undefined, format = "yyyy/MM/dd HH:mm:ss") {
   // sDate = sDate.replace("T", " ").replace("Z", " ").replaceAll("-", "/");
+  date ||= Date.now();
   if (typeof date == "string") date = date.replace(/-/g, "/").replace("T", " ").replace("Z", " ");
-  if (!date) return "";
   date = new Date(date);
   const o = {
     "Y": date.getFullYear(),
