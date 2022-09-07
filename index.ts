@@ -28,3 +28,5 @@ export const rtn = <T>(o: T) => o;
 
 export {default as omit} from "./utils/omit";
 export {default as pick} from "./utils/pick";
+
+export { default as readAs } from "./utils/readAs";
