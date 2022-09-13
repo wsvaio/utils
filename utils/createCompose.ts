@@ -29,7 +29,7 @@ export function createCompose<ctx = any>() {
     try {
       await onion(ctx, ...useList);
     } catch (error) {
-      Object.assign(ctx, { error });
+      Object.assign<any, unknown>(ctx, { error });
       await onion(ctx, ...errorList);
     } finally {
       await onion(ctx, ...finalList);
