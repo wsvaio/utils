@@ -1,7 +1,7 @@
 export default async (data: string | Blob, name?: string) => {
   
   if (typeof data == "string") {
-    name = data.split("/").reverse()[0];
+    name ??= data.split("/").reverse()[0];
     const response = await fetch(data);
     if (!response.ok) return Promise.reject(response);
     data = await response.blob();
