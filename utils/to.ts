@@ -1,1 +1,1 @@
-export default (fn: Promise<any>) => fn.then(data => [null, data]).catch(err => [err, null]);
+export default <T>(fn: Promise<T>) => fn.then(data => (<[null, T]>[null, data])).catch(err => (<[Error, null]>[err, null]));
