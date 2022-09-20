@@ -35,9 +35,9 @@ export function timeFormat(seconds: number, format = "hh:mm:ss") {
 }
 
 // 日期格式化
+// 兼容性问题：replaceAll, ||= 
 export function dateFormat(date: string | Date | number | null | undefined, format = "yyyy/MM/dd HH:mm:ss") {
-  // sDate = sDate.replace("T", " ").replace("Z", " ").replaceAll("-", "/");
-  date ||= Date.now();
+  date || (date =  Date.now());
   if (typeof date == "string") date = date.replace(/-/g, "/").replace("T", " ").replace("Z", " ");
   date = new Date(date);
   const o = {
