@@ -30,3 +30,5 @@ export { default as pick } from "./utils/pick";
 export { default as readAs } from "./utils/readAs";
 
 export { default as filePicker } from "./utils/filePicker";
+
+export { default as compressPicture } from "./utils/compressPicture";
