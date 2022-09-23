@@ -2,9 +2,8 @@ import to from "./to";
 export default async (data: string | Blob, name?: string) => {
   const a = document.createElement("a");
   a.rel = "noopener";
-  name && (a.download = name);
   if (typeof data == "string") {
-    a.download ??= data.split("/").reverse()[0];
+    a.download = name ?? data.split("/").reverse()[0] ?? "download";
     const [err, res] = await to(fetch(data));
     if (err || !res?.ok) {
       a.href = data;
@@ -13,6 +12,7 @@ export default async (data: string | Blob, name?: string) => {
     }
     data = await res.blob();
   }
+  a.download = name ?? "download";
   a.href = URL.createObjectURL(data);
   a.click();
   URL.revokeObjectURL(a.href);

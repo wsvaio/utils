@@ -1,3 +1,5 @@
+import compressPicture from "./utils/compressPicture";
+
 export { debounce, throttle } from "./utils/decorator";
 
 export { dateFormat, timeFormat } from "./utils/formats";
@@ -32,3 +34,4 @@ export { default as readAs } from "./utils/readAs";
 export { default as filePicker } from "./utils/filePicker";
 
 export { default as compressPicture } from "./utils/compressPicture";
+

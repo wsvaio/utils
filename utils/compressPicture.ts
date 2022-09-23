@@ -18,7 +18,7 @@ const canvasToFile = (canvas: HTMLCanvasElement, type: string, quality: number) 
  * @param {Nubmber} quality 压缩质量参数
  * @returns 压缩后的新图片
  */
-export default async (file: File, { quality = 0.5, width = 1920, height = 1080 }) => {
+export default async (file: File, { quality = 0.5, width = 1920, height = 1080 }={}) => {
   const { name, lastModified, type } = file;
   const canvas = document.createElement("canvas");
   const context = canvas.getContext("2d")!;
