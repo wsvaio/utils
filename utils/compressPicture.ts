@@ -13,10 +13,11 @@ const canvasToFile = (canvas: HTMLCanvasElement, type: string, quality: number) 
 
 /**
  * 图片压缩方法
- * @param {Object}  file 图片文件
- * @param {String} type 想压缩成的文件类型
- * @param {Nubmber} quality 压缩质量参数
- * @returns 压缩后的新图片
+ * @param file 图片文件
+ * @param quality 压缩质量参数
+ * @param width 最大宽度
+ * @param height 最大高度
+ * @returns 压缩后的File
  */
 export default async (file: File, { quality = 0.5, width = 1920, height = 1080 }={}) => {
   const { name, lastModified, type } = file;

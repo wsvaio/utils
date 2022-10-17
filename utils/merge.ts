@@ -25,7 +25,7 @@ export default function merge<T extends Object>(obj1: T, obj2 = <DeepPartial<T> 
       merge(obj1[key], val, { deep, overwrite, del, rtn });
     } else {
       if (!overwrite && ![null, undefined].includes(obj1[key])) continue;
-      obj1[key] = val
+      obj1[key] = val;
     }
   }
   return rtn ? obj1 : "";
