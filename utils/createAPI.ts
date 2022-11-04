@@ -59,7 +59,8 @@ export function createAPI<custom = {}>(_ctx = <ctx<custom>>{}, ...plugins: plugi
       const body: any = toString(ctx.body) == "[object Object]" ? ctx.body : {};
       const keys = url.pathname.split("/").filter(item => item.startsWith(":")).map(item => item.substring(1));
       for (const key of keys) {
-        url.pathname = url.pathname.replace(`:${key}`, param[key] ?? body[key]);
+        const val = param[key] ?? body[key] ?? "";
+        url.pathname = url.pathname.replace(new RegExp(`/:${key}\\??`, 'g'), `/${val}`);
       }
       ctx.url = url.pathname + url.search + url.hash;
     });
