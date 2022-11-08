@@ -60,7 +60,7 @@ export function createAPI<custom = {}>(_ctx = <ctx<custom>>{}, ...plugins: plugi
       const keys = url.pathname.split("/").filter(item => item.startsWith(":")).map(item => item.substring(1));
       for (const key of keys) {
         const val = param[key] ?? body[key] ?? "";
-        url.pathname = url.pathname.replace(new RegExp(`/:${key}\\??`, 'g'), `/${val}`);
+        url.pathname = url.pathname.replace(new RegExp(`/:${key}\\??`, 'g'), val ? `/${val}` : val);
       }
       ctx.url = url.pathname + url.search + url.hash;
     });

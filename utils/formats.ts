@@ -1,5 +1,5 @@
 // 时间格式化
-export function timeFormat1(seconds = 0, format = "HH:mm:ss") {
+export function timeFormat(seconds = 0, format = "HH:mm:ss") {
   const o = { "h": 0, "m": 0, "s": 0, "H": 0, "M": 0, "S": 0 };
 
   let time = o.S = Math.floor(seconds ?? 0);
