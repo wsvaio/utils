@@ -1,0 +1,1 @@
+export const toString = (obj: unknown) => Object.prototype.toString.call(obj);

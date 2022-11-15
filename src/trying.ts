@@ -1,0 +1,1 @@
+export const trying =  async (fn: () => any) => await fn();
