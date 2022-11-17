@@ -1,1 +1,1 @@
-export const trying = async (fn: () => unknown) => await fn();
+export const trying = async <T>(fn: () => T) => await fn();

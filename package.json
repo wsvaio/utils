@@ -1,6 +1,6 @@
 {
   "name": "@wsvaio/utils",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "常用utils",
   "author": "wsvaio <wsvaio@qq.com>",
   "license": "MIT",
@@ -30,7 +30,8 @@
     "access": "public"
   },
   "scripts": {
-    "build": "node scripts/index.js && rollup --config rollup.config.ts --configPlugin typescript"
+    "build": "node scripts/index.js && rollup --config rollup.config.ts --configPlugin typescript",
+    "release": "npm run build && npm version patch && npm publish"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^9.0.2",
