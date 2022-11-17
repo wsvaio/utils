@@ -1,15 +1,17 @@
 {
   "name": "@wsvaio/utils",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "常用utils",
   "author": "wsvaio <wsvaio@qq.com>",
   "license": "MIT",
   "homepage": "https://github.com/wsvaio/utils",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/antfu/utils.git"
+    "url": "git+https://github.com/wsvaio/utils.git"
   },
-  "keywords": ["utils"],
+  "keywords": [
+    "utils"
+  ],
   "exports": {
     ".": {
       "require": "./dist/index.cjs",
