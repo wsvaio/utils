@@ -7,6 +7,8 @@
  * has：只有obj1中有的属性才赋值
  */
 
+import { isSimpleObject } from "./toString";
+
 // 递归可选
 type DeepPartial<T> = T extends Function
   ? T
@@ -39,7 +41,7 @@ export const merge = <
   }
   for (const [key, val] of Object.entries(obj2)) {
     if (has && [null, undefined].includes(obj1[key])) continue;
-    if (val instanceof Object && deep > 0 && Array.isArray(val) == Array.isArray(obj1[key])) {
+    if (isSimpleObject(val) && deep > 0 && Array.isArray(val) == Array.isArray(obj1[key])) {
       Array.isArray(val)
         ? !Array.isArray(obj1[key]) && (obj1[key] = [])
         : typeof obj1[key] != "object" && (obj1[key] = {});
