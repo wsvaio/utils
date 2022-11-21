@@ -10,7 +10,7 @@
 import { isSimpleObject } from "./toString";
 
 // 递归可选
-type DeepPartial<T> = T extends Function
+export type DeepPartial<T> = T extends Function
   ? T
   : T extends object
   ? { [P in keyof T]?: DeepPartial<T[P]> } | Record<any, any>
