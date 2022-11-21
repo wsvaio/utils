@@ -31,6 +31,7 @@
   },
   "scripts": {
     "build": "node scripts/index.js && rollup --config rollup.config.ts --configPlugin typescript",
+    "prerelease": "npm run build && npm version prerelease && npm publish",
     "release": "npm run build && npm version patch && npm publish"
   },
   "devDependencies": {
