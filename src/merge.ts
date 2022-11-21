@@ -39,7 +39,7 @@ export const merge = <
   }
   for (const [key, val] of Object.entries(obj2)) {
     if (has && [null, undefined].includes(obj1[key])) continue;
-    if (typeof val == "object" && deep > 0 && Array.isArray(val) == Array.isArray(obj1[key])) {
+    if (val instanceof Object && deep > 0 && Array.isArray(val) == Array.isArray(obj1[key])) {
       Array.isArray(val)
         ? !Array.isArray(obj1[key]) && (obj1[key] = [])
         : typeof obj1[key] != "object" && (obj1[key] = {});
