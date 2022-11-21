@@ -44,7 +44,7 @@ export const merge = <
     if (isSimpleObject(val) && deep > 0 && Array.isArray(val) == Array.isArray(obj1[key])) {
       Array.isArray(val)
         ? !Array.isArray(obj1[key]) && (obj1[key] = [])
-        : typeof obj1[key] != "object" && (obj1[key] = {});
+        : !isSimpleObject(obj1[key]) && (obj1[key] = {});
       merge(obj1[key], val, { deep, overwrite, del, rtn });
     } else {
       if (!overwrite && ![null, undefined].includes(obj1[key])) continue;
