@@ -12,10 +12,11 @@
 - pick: 选择对象属性，组合并返回
 - Progress: 头部进度条
 - readAs: 读取文件
-- remove: 移除对象属性，返回移除的属性
 - saveAs: 保存文件
 - download: 保存文件
 - sleep: 睡眠
 - to: 返回promise的正确和错误结果的组合
-- toString: 判断类型
+- toTypeString：返回参数的类型 [object xxx]
+- toRawString：返回参数的类型，只返回类型部分 [object xxx] - xxx
+- is：判断数据类型
 - trying: 以promise运行传入的参数函数
