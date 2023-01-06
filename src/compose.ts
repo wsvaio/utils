@@ -1,17 +1,19 @@
 export type Middleware<Context> = (ctx: Context, next: () => Promise<void>) => Promise<unknown>;
 export type Compose<Context> = {
-  (...middlewares: Middleware<Context>[]): number;
+  (...middlewares: Middleware<Context>[]): Compose<Context>;
   (context: Context): Promise<void>;
   middlewares: Middleware<Context>[];
-  use: (...handlers: Middleware<Context>[]) => number;
+  use: (...handlers: Middleware<Context>[]) => Compose<Context>;
   run: (ctx: Context) => Promise<void>;
 };
 
-
-export const createCompose = <Context extends object = {}>(
+export const compose = <Context extends object = {}>(
   ...middlewares: Middleware<Context>[]
 ): Compose<Context> => {
-  const use = (...handlers: Middleware<Context>[]) => middlewares.push(...handlers);
+  const use = (...handlers: Middleware<Context>[]) => {
+    middlewares.push(...handlers);
+    return result;
+  };
 
   const run = (ctx: Context) => {
     let i = -1;
@@ -24,10 +26,13 @@ export const createCompose = <Context extends object = {}>(
     return next();
   };
 
-  function result(...middlewares: Middleware<Context>[]): number;
+  function result(...middlewares: Middleware<Context>[]): Compose<Context>;
   function result(context: Context): Promise<void>;
   function result(arg: Middleware<Context> | Context, ...middlewares: Middleware<Context>[]) {
-    return typeof arg == "function" ? use(arg, ...middlewares) : run(arg);
+    if (typeof arg == "function") {
+      use(arg, ...middlewares);
+      return result;
+    } else return run(arg);
   }
 
   result.middlewares = middlewares;
@@ -36,6 +41,3 @@ export const createCompose = <Context extends object = {}>(
 
   return result;
 };
-
-
-
