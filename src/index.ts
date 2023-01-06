@@ -1,3 +1,4 @@
+export * from "./compose"
 export * from "./compressPicture"
 export * from "./createEventBus"
 export * from "./decorator"
