@@ -38,7 +38,7 @@ export const merge = <
       Array.isArray(val)
         ? !Array.isArray(obj1[key]) && (obj1[key] = [])
         : !is("Object", "Array")(obj1[key]) && (obj1[key] = {});
-      merge(obj1[key], val, { deep, overwrite, del });
+      merge(obj1[key], val, { deep, overwrite, del, has });
     } else {
       if (!overwrite && ![null, undefined].includes(obj1[key])) continue;
       obj1[key] = val;
