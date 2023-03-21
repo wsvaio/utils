@@ -8,10 +8,8 @@ export const debounce = <T extends (...args: any[]) => any>(fn: T, time = 1000) 
   return (...args: Parameters<T>) => {
     clearTimeout(timer);
     timer = setTimeout(fn, time, ...args);
-  }
-
-}
-
+  };
+};
 
 /**
  * 节流
@@ -21,7 +19,7 @@ export const throttle = <T extends (...args: any[]) => any>(fn: T, time = 1000) 
   let timer: any = null;
   return (...args: Parameters<T>) => {
     if (timer != null) return;
-    timer = setTimeout(() => { timer = null; }, time);
+    timer = setTimeout(() => timer = null, time);
     fn(...args);
-  }
-}
+  };
+};

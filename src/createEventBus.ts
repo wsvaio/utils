@@ -3,7 +3,7 @@ export const createEventBus = (map = new Map<string, Function[]>()) => ({
   on<T = any>(type: string, handler: (event: T) => any) {
     const handlers = map.get(type);
     handlers
-      ? handlers.splice(handlers.indexOf(handler) >>> 0, 1) && handlers.push(handler)
+      ? (handlers.splice(handlers.indexOf(handler) >>> 0, 1) && handlers.push(handler))
       : map.set(type, [handler]);
   },
   off<T = any>(type: string, handler?: (event: T) => any) {
@@ -16,5 +16,5 @@ export const createEventBus = (map = new Map<string, Function[]>()) => ({
   emit<T = any>(type: string, event?: T) {
     const handlers = map.get(type);
     handlers && handlers.forEach(handler => handler(event ?? type));
-  }
+  },
 });

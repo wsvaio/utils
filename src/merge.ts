@@ -4,8 +4,8 @@ import { is } from "./is";
 export type DeepPartial<T> = T extends Function
   ? T
   : T extends object
-  ? { [P in keyof T]?: DeepPartial<T[P]> } | Record<any, any>
-  : T;
+    ? { [P in keyof T]?: DeepPartial<T[P]> } | Record<any, any>
+    : T;
 
 /**
 * 递归合并两个对象到obj1
@@ -15,18 +15,17 @@ export type DeepPartial<T> = T extends Function
 * has：只有obj1中有的属性才赋值
 */
 export const merge = <
-  TObj1 extends object,
-  TObj2 extends DeepPartial<TObj1> = DeepPartial<TObj1>,
+  TObj1 extends object, TObj2 extends DeepPartial<TObj1> = DeepPartial<TObj1>,
 >(
-  obj1: TObj1,
-  obj2: TObj2,
-  {
-    deep = 1,
-    overwrite = true,
-    del = false,
-    has = false,
-  } = {}
-) => {
+    obj1: TObj1,
+    obj2: TObj2,
+    {
+      deep = 1,
+      overwrite = true,
+      del = false,
+      has = false,
+    } = {},
+  ) => {
   deep--;
   if (del) {
     const dels = Object.keys(obj1).filter(item => !Object.keys(obj2).includes(item));
@@ -36,22 +35,15 @@ export const merge = <
     if (has && [null, undefined].includes(obj1[key])) continue;
     if (is("Object", "Array")(val) && deep > 0 && Array.isArray(val) == Array.isArray(obj1[key])) {
       Array.isArray(val)
-        ? !Array.isArray(obj1[key]) && (obj1[key] = [])
-        : !is("Object", "Array")(obj1[key]) && (obj1[key] = {});
+        ? (!Array.isArray(obj1[key]) && (obj1[key] = []))
+        : (!is("Object", "Array")(obj1[key]) && (obj1[key] = {}));
       merge(obj1[key], val, { deep, overwrite, del, has });
-    } else {
+    }
+    else {
       if (!overwrite && ![null, undefined].includes(obj1[key])) continue;
       obj1[key] = val;
     }
   }
 
   return obj1;
-}
-
-
-
-
-
-
-
-
+};

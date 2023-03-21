@@ -1,6 +1,6 @@
 // 时间格式化
 export const timeFormat = (seconds = 0, format = "HH:mm:ss") => {
-  const o = { "h": 0, "m": 0, "s": 0, "H": 0, "M": 0, "S": 0 };
+  const o = { h: 0, m: 0, s: 0, H: 0, M: 0, S: 0 };
 
   let time = o.S = Math.floor(seconds ?? 0);
   o.s = time % 60;
@@ -18,24 +18,24 @@ export const timeFormat = (seconds = 0, format = "HH:mm:ss") => {
       .replace(new RegExp(`${k}`, "g"), "0");
   }
   return format.split("").reverse().join("");
-}
+};
 
 // 日期格式化
-// 兼容性问题：replaceAll, ||= 
+// 兼容性问题：replaceAll, ||=
 export const dateFormat = (date: string | Date | number | null | undefined, format = "yyyy/MM/dd HH:mm:ss") => {
   date || (date = Date.now());
   if (typeof date == "string") date = date.replace(/-/g, "/").replace("T", " ").replace("Z", " ");
   date = new Date(date);
   const o = {
-    "Y": date.getFullYear(),
-    "y": date.getFullYear(),
-    "M": date.getMonth() + 1,
-    "d": date.getDate(),
-    "H": date.getHours(),
-    "m": date.getMinutes(),
-    "s": date.getSeconds(),
-    "S": date.getMilliseconds(),
-    "w": date.getDay()
+    Y: date.getFullYear(),
+    y: date.getFullYear(),
+    M: date.getMonth() + 1,
+    d: date.getDate(),
+    H: date.getHours(),
+    m: date.getMinutes(),
+    s: date.getSeconds(),
+    S: date.getMilliseconds(),
+    w: date.getDay(),
   };
   format = format.split("").reverse().join("");
   for (let [k, v] of Object.entries<number | string>(o)) {
@@ -44,5 +44,4 @@ export const dateFormat = (date: string | Date | number | null | undefined, form
       .replace(new RegExp(`${k}`, "g"), "0");
   }
   return format.split("").reverse().join("");
-}
-
+};

@@ -3,13 +3,15 @@ export const trying = async <T>(fn: () => T) => await fn();
 export const tryingSync = <T>(
   tryCallBack: () => T,
   catchCallBack?: (error: unknown) => any,
-  finallyCallBack?: () => any
+  finallyCallBack?: () => any,
 ) => {
   try {
     return tryCallBack();
-  } catch (error) {
+  }
+  catch (error) {
     catchCallBack && catchCallBack(error);
-  } finally {
+  }
+  finally {
     finallyCallBack && finallyCallBack();
   }
 };

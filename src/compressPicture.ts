@@ -2,14 +2,13 @@ import { readAs } from "./readAs";
 
 const dataURLToImage = (dataURL: string) => new Promise<HTMLImageElement>((resolve, reject) => {
   const img = new Image();
-  img.onload = e => resolve(img);
+  img.onload = () => resolve(img);
   img.onerror = e => reject(e);
   img.src = dataURL;
-})
+});
 const canvasToFile = (canvas: HTMLCanvasElement, type: string, quality: number) =>
-  new Promise<Blob>((resolve, reject) => canvas.toBlob((blob) =>
-    blob ? resolve(blob) : reject('canvas.toBlob callback return is undefined'), type, quality));
-
+  new Promise<Blob>((resolve, reject) => canvas.toBlob(blob =>
+    blob ? resolve(blob) : reject(new Error("canvas.toBlob callback return is undefined")), type, quality));
 
 /**
  * 图片压缩方法
@@ -19,7 +18,7 @@ const canvasToFile = (canvas: HTMLCanvasElement, type: string, quality: number) 
  * @param height 最大高度
  * @returns 压缩后的File
  */
-export const compressPicture = async (file: File, { quality = 0.5, width = 1920, height = 1080 }={}) => {
+export const compressPicture = async (file: File, { quality = 0.5, width = 1920, height = 1080 } = {}) => {
   const { name, lastModified, type } = file;
   const canvas = document.createElement("canvas");
   const context = canvas.getContext("2d")!;

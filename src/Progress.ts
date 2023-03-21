@@ -1,6 +1,5 @@
 // 全局进度条
 export class Progress {
-
   private timer: any = null;
   private num = 0;
   private el: HTMLDivElement = document.createElement("div");
@@ -33,8 +32,9 @@ export class Progress {
 
   private inc() {
     this.num += (Progress.max - this.num) / Progress.max * Math.random() * Progress.speed;
-    this.el.style.width = this.num + "%";
+    this.el.style.width = `${this.num}%`;
   }
+
   destroy(success = true) {
     clearInterval(this.timer);
     this.el.style.width = "100%";
@@ -49,6 +49,7 @@ export class Progress {
   }
 
   static start() {
+    // eslint-disable-next-line no-new
     new Progress();
   }
 
@@ -61,5 +62,4 @@ export class Progress {
     for (let progress of this.list) progress.destroy();
     this.list.length = 0;
   }
-
 }

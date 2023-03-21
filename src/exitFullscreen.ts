@@ -1,12 +1,14 @@
-export const exitFullscreen =  (elem?) => {
+export const exitFullscreen = (elem?) => {
   elem ??= document;
-  if (elem.cancelFullScreen) {
+  if (elem.cancelFullScreen)
     elem.cancelFullScreen();
-  } else if (elem.mozCancelFullScreen) {
+
+  else if (elem.mozCancelFullScreen)
     elem.mozCancelFullScreen();
-  } else if (elem.webkitCancelFullScreen) {
+
+  else if (elem.webkitCancelFullScreen)
     elem.webkitCancelFullScreen();
-  } else if (elem.webkitExitFullScreen) {
+
+  else if (elem.webkitExitFullScreen)
     elem.webkitExitFullScreen();
-  }
-}
+};

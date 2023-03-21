@@ -1,4 +1,4 @@
-import { is } from "./is"
+import { is } from "./is";
 
 export const objToFormData = (obj: Record<any, any>) => {
   const formData = new FormData();

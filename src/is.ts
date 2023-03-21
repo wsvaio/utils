@@ -8,7 +8,7 @@ import { toRawType } from "./to";
 /**
  * 基本数据类型和一些常用的内置对象
  */
-export type BuiltInObjects = {
+export interface BuiltInObjects {
   String: string;
   Number: number;
   Null: null;
@@ -17,7 +17,7 @@ export type BuiltInObjects = {
   BigInt: BigInt;
   Boolean: boolean;
   Object: Object;
-  Function: Function;  
+  Function: Function;
   Error: Error;
   Date: Date;
   RegExp: RegExp;
@@ -28,12 +28,11 @@ export type BuiltInObjects = {
   ArrayBuffer: ArrayBuffer;
   Promise: Promise<unknown>;
   Array: Array<unknown>;
-};
+}
 /**
  * 判断数据类型
  */
-export const is =
-  <T extends keyof BuiltInObjects>(...types: T[]) =>
-  (value: unknown): value  is BuiltInObjects[T] =>
-    types.some((item) => item === toRawType(value));
-
+export const is
+  = <T extends keyof BuiltInObjects>(...types: T[]) =>
+    (value: unknown): value is BuiltInObjects[T] =>
+      types.includes(toRawType(value));

@@ -24,4 +24,4 @@ export const download = (url: string, name?: string) => {
   a.download = name ?? url.split("/").reverse()[0];
   a.href = url;
   a.click();
-}
+};
