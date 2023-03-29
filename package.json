@@ -1,7 +1,7 @@
 {
   "name": "@wsvaio/utils",
   "type": "module",
-  "version": "1.0.2",
+  "version": "1.0.0-1",
   "description": "常用utils",
   "author": "wsvaio <wsvaio@qq.com>",
   "license": "MIT",
@@ -42,7 +42,7 @@
     "test": "vitest",
     "commit": "czg",
     "build": "esno ./scripts/index.ts && tsup",
-    "prepublish": "npm run build",
+    "prepublishOnly": "npm run build",
     "log": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "lint:eslint": "eslint --cache --max-warnings 0  \"{src,mock}/**/*.{vue,ts,tsx}\" --fix",
     "lint:prettier": "prettier --write  \"src/**/*.{js,json,tsx,css,less,scss,vue,html,md}\"",

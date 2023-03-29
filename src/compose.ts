@@ -1,17 +1,17 @@
 export type Middleware<Context> = (ctx: Context, next: () => Promise<void>) => Promise<any>;
 export interface Compose<Context> {
-  (...middlewares: Middleware<Context>[]): Compose<Context>;
+  (...initials: Middleware<Context>[]): Compose<Context>;
   (context: Context): Promise<Context>;
   set: Set<Middleware<Context>>;
-  use: (...handlers: Middleware<Context>[]) => Compose<Context>;
-  unuse: (...handlers: Middleware<Context>[]) => Compose<Context>;
+  use: (...middlewares: Middleware<Context>[]) => Compose<Context>;
+  unuse: (...middlewares: Middleware<Context>[]) => Compose<Context>;
   run: (ctx: Context) => Promise<Context>;
 }
 
 export const compose = <Context extends object = {}>(
-  ...middlewares: Middleware<Context>[]
+  ...initials: Middleware<Context>[]
 ): Compose<Context> => {
-  const set = new Set<Middleware<Context>>();
+  const set = new Set<Middleware<Context>>(initials);
   const use = (...middlewares: Middleware<Context>[]) => {
     middlewares.forEach(middleware => set.add(middleware));
     return result;
@@ -23,11 +23,11 @@ export const compose = <Context extends object = {}>(
 
   const run = async (ctx: Context) => {
     let i = -1;
-    const middlewares = [...set];
+    const list = [...set];
     const next = async () => {
-      if (!middlewares[++i]) return;
-      await middlewares[i](ctx, next);
-      middlewares[i].length <= 1 && (await next());
+      if (!list[++i]) return;
+      await list[i](ctx, next);
+      list[i].length <= 1 && (await next());
     };
     await next();
     return ctx;
@@ -42,6 +42,5 @@ export const compose = <Context extends object = {}>(
   result.use = use;
   result.unuse = unuse;
   result.run = run;
-  result(...middlewares);
   return result;
 };
