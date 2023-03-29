@@ -4,6 +4,7 @@ export interface Compose<Context> {
   (context: Context): Promise<Context>;
   set: Set<Middleware<Context>>;
   use: (...handlers: Middleware<Context>[]) => Compose<Context>;
+  unuse: (...handlers: Middleware<Context>[]) => Compose<Context>;
   run: (ctx: Context) => Promise<Context>;
 }
 
@@ -12,7 +13,11 @@ export const compose = <Context extends object = {}>(
 ): Compose<Context> => {
   const set = new Set<Middleware<Context>>();
   const use = (...middlewares: Middleware<Context>[]) => {
-    middlewares.forEach(set.add);
+    middlewares.forEach(middleware => set.add(middleware));
+    return result;
+  };
+  const unuse = (...middlewares: Middleware<Context>[]) => {
+    middlewares.forEach(middleware => set.delete(middleware));
     return result;
   };
 
@@ -35,6 +40,7 @@ export const compose = <Context extends object = {}>(
   }
   result.set = set;
   result.use = use;
+  result.unuse = unuse;
   result.run = run;
   result(...middlewares);
   return result;
