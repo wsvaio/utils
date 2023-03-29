@@ -25,9 +25,10 @@ export const compose = <Context extends object = {}>(
     let i = -1;
     const list = [...set];
     const next = async () => {
-      if (!list[++i]) return;
-      await list[i](ctx, next);
-      list[i].length <= 1 && (await next());
+      const fn = list[++i];
+      if (!fn) return;
+      await fn(ctx, next);
+      fn.length <= 1 && (await next());
     };
     await next();
     return ctx;
