@@ -1,4 +1,4 @@
-export const createEventBus = (map = new Map<string, Function[]>()) => ({
+export const createEventHandler = (map = new Map<string, Function[]>()) => ({
   map,
   on<T = any>(type: string, handler: (event: T) => any) {
     const handlers = map.get(type);
@@ -18,3 +18,6 @@ export const createEventBus = (map = new Map<string, Function[]>()) => ({
     handlers && handlers.forEach(handler => handler(event ?? type));
   },
 });
+
+// 别名
+export const createEventBus = createEventHandler;

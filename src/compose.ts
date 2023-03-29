@@ -1,43 +1,41 @@
-export type Middleware<Context> = (ctx: Context, next: () => Promise<void>) => Promise<unknown>;
+export type Middleware<Context> = (ctx: Context, next: () => Promise<void>) => Promise<any>;
 export interface Compose<Context> {
   (...middlewares: Middleware<Context>[]): Compose<Context>;
-  (context: Context): Promise<void>;
-  middlewares: Middleware<Context>[];
+  (context: Context): Promise<Context>;
+  set: Set<Middleware<Context>>;
   use: (...handlers: Middleware<Context>[]) => Compose<Context>;
-  run: (ctx: Context) => Promise<void>;
+  run: (ctx: Context) => Promise<Context>;
 }
 
 export const compose = <Context extends object = {}>(
   ...middlewares: Middleware<Context>[]
 ): Compose<Context> => {
-  const use = (...handlers: Middleware<Context>[]) => {
-    middlewares.push(...handlers);
+  const set = new Set<Middleware<Context>>();
+  const use = (...middlewares: Middleware<Context>[]) => {
+    middlewares.forEach(set.add);
     return result;
   };
 
-  const run = (ctx: Context) => {
+  const run = async (ctx: Context) => {
     let i = -1;
+    const middlewares = [...set];
     const next = async () => {
       if (!middlewares[++i]) return;
       await middlewares[i](ctx, next);
       middlewares[i].length <= 1 && (await next());
     };
-    return next();
+    await next();
+    return ctx;
   };
 
   function result(...middlewares: Middleware<Context>[]): Compose<Context>;
-  function result(context: Context): Promise<void>;
-  function result(arg: Middleware<Context> | Context, ...middlewares: Middleware<Context>[]) {
-    if (typeof arg == "function") {
-      use(arg, ...middlewares);
-      return result;
-    }
-    else { return run(arg); }
+  function result(context: Context): Promise<Context>;
+  function result(context: Middleware<Context> | Context, ...middlewares: Middleware<Context>[]) {
+    return typeof context == "function" ? use(context, ...middlewares) : run(context);
   }
-
-  result.middlewares = middlewares;
+  result.set = set;
   result.use = use;
   result.run = run;
-
+  result(...middlewares);
   return result;
 };

@@ -1,4 +1,5 @@
-type Parameters<T extends (...args: any) => any> = T extends (...args: infer P) => any ? P : never;
+// 取函数参数类型
+export type Parameters<T extends (...args: any) => any> = T extends (...args: infer P) => any ? P : never;
 /**
  * 防抖
  * 事件函数一段时间后才执行，如果在这段事件内再次调用，则重新计算执行时间

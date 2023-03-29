@@ -1,6 +1,6 @@
 export * from "./compose";
 export * from "./compressPicture";
-export * from "./createEventBus";
+export * from "./createEventHandler";
 export * from "./decorator";
 export * from "./exitFullscreen";
 export * from "./filePicker";
@@ -17,3 +17,4 @@ export * from "./saveAs";
 export * from "./sleep";
 export * from "./to";
 export * from "./trying";
+export * from "./types.d";
