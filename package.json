@@ -1,7 +1,7 @@
 {
   "name": "@wsvaio/utils",
   "type": "module",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "常用utils",
   "author": "wsvaio <wsvaio@qq.com>",
   "license": "MIT",
