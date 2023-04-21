@@ -25,6 +25,7 @@ export class Progress {
     this.el.style.cssText = Progress.css;
     this.el.style.background = Progress.color;
     this.el.style.height = Progress.height;
+
     document.body.append(this.el);
     Progress.list.push(this);
     this.timer = setInterval(() => this.inc(), 500);
