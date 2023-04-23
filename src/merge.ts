@@ -1,11 +1,7 @@
-import { is } from "./is";
-
-export type DeepPartial<T> = {
-  [P in keyof T]?: DeepPartial<T[P]>;
-};
+import type { DeepPartial } from "./types";
 
 /**
- * 合并两个对象并返回，在默认情况下与Object.assign类似
+ * 合并两个对象并返回，对于Object与Array类型是可靠的，对于一些复杂数据结构可能存在问题，谨慎使用
  * @param obj1 合并的对象，该对象的值会被修改，并作为返回值
  * @param obj2 合并的对象
  * @param options.deep 递归的深度，默认为1
@@ -21,8 +17,8 @@ export const merge = <Obj1 extends object, Obj2 extends DeepPartial<Obj1> | obje
 ) => {
   let { deep = 1, overwrite = true, del = false, has = false } = options;
   const handle = (key) => {
-    if (is("Array", "Object")(obj2[key]) && deep > 0) {
-      if (obj1[key] === undefined) obj1[key] = is("Array") ? [] : {};
+    if (obj2[key] instanceof Object && deep > 0) {
+      if (obj1[key] === undefined) obj1[key] = Array.isArray(obj2[key]) ? [] : {};
       merge(obj1[key], obj2[key], { deep, overwrite, del, has });
     }
     else if (overwrite || obj1[key] === undefined) {
@@ -30,11 +26,11 @@ export const merge = <Obj1 extends object, Obj2 extends DeepPartial<Obj1> | obje
     }
   };
   deep--;
-  if (is("Array")(obj1) && is("Array")(obj2)) {
+  if (Array.isArray(obj1) && Array.isArray(obj2)) {
     if (del && obj1.length > obj2.length) obj1.length = obj2.length;
     for (let i = 0; i < (has ? obj1.length : obj2.length); i++) handle(i);
   }
-  else if (is("Object")(obj1) && is("Object")(obj2)) {
+  else if (obj1 instanceof Object && obj2 instanceof Object) {
     if (del) {
       const dels = Object.keys(obj1).filter(item => !Object.keys(obj2).includes(item));
       for (const key of dels) delete obj1[key];
@@ -44,8 +40,6 @@ export const merge = <Obj1 extends object, Obj2 extends DeepPartial<Obj1> | obje
       handle(key);
     }
   }
-  else {
-    Object.assign(obj1, obj2);
-  }
+
   return obj1;
 };
