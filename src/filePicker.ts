@@ -1,4 +1,3 @@
-import { merge } from "./merge";
 // ios safair 浏览器中，必须将 input 添加到 真实的dom 中，onchange事件才会响应 在真实dom中，才会有 event.target
 
 export const filePicker = (options: Partial<HTMLInputElement>) => {
@@ -7,7 +6,7 @@ export const filePicker = (options: Partial<HTMLInputElement>) => {
   if (input) body.removeChild(input);
   input = document.createElement("input");
   body.appendChild(input);
-  merge(input, options);
+  Object.assign(input, options);
   input.type = "file";
   input.id = "filePickerInput";
   input.style.cssText = `
