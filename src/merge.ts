@@ -1,3 +1,4 @@
+import { is } from "./is";
 import type { DeepPartial } from "./types";
 
 /**
@@ -17,8 +18,8 @@ export const merge = <Obj1 extends object, Obj2 extends DeepPartial<Obj1> | obje
 ) => {
   let { deep = 1, overwrite = true, del = false, has = false } = options;
   const handle = (key) => {
-    if (obj2[key] instanceof Object && !(obj2[key] instanceof Function) && deep > 0) {
-      if (!(obj1[key] instanceof Object)) obj1[key] = new obj2[key].constructor();
+    if ((Array.isArray(obj2[key]) || is("Object")(obj2[key])) && deep > 0) {
+      if (!(obj1[key] instanceof Object)) obj1[key] = Array.isArray(obj2[key]) ? [] : {};
       merge(obj1[key], obj2[key], { deep, overwrite, del, has });
     }
     else if (overwrite || obj1[key] === undefined) {
