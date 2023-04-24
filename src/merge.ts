@@ -1,8 +1,7 @@
-import { is } from "./is";
 import type { DeepPartial } from "./types";
 
 /**
- * 合并两个对象并返回，只有Object与Array类型会递归处理
+ * 合并两个对象并返回，除了Object与Array可靠，其余复杂类型数据不可靠，请谨慎使用
  * @param obj1 合并的对象，该对象的值会被修改，并作为返回值
  * @param obj2 合并的对象
  * @param options.deep 递归的深度，默认为1
@@ -18,7 +17,7 @@ export const merge = <Obj1 extends object, Obj2 extends DeepPartial<Obj1> | obje
 ) => {
   let { deep = 1, overwrite = true, del = false, has = false } = options;
   const handle = (key) => {
-    if ((Array.isArray(obj2[key]) || is("Object")(obj2[key])) && deep > 0) {
+    if (obj2[key] instanceof Object && deep > 0) {
       if (obj1[key] === undefined) obj1[key] = Array.isArray(obj2[key]) ? [] : {};
       merge(obj1[key], obj2[key], { deep, overwrite, del, has });
     }
