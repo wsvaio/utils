@@ -17,7 +17,7 @@ export const merge = <Obj1 extends object, Obj2 extends DeepPartial<Obj1> | obje
 ) => {
   let { deep = 1, overwrite = true, del = false, has = false } = options;
   const handle = (key) => {
-    if (obj2[key] instanceof Object && deep > 0) {
+    if (obj2[key] instanceof Object && !(obj2[key] instanceof Function) && deep > 0) {
       if (!(obj1[key] instanceof Object)) obj1[key] = Array.isArray(obj2[key]) ? [] : {};
       merge(obj1[key], obj2[key], { deep, overwrite, del, has });
     }
