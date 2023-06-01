@@ -1,5 +1,5 @@
 export const exitFullscreen = (elem?) => {
-  elem ??= document;
+  elem ||= document;
   if (elem.cancelFullScreen)
     elem.cancelFullScreen();
 
