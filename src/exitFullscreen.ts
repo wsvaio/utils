@@ -1,3 +1,7 @@
+/**
+ * 退出全屏模式
+ * @param elem 全屏元素
+ */
 export const exitFullscreen = elem => {
 	elem ||= document;
 	if (elem.cancelFullScreen)

@@ -2,7 +2,7 @@
   "name": "@wsvaio/utils",
   "type": "module",
   "version": "1.0.11",
-  "description": "常用utils",
+  "description": "一个JavaScript工具库，它包含了许多通用的函数和工具，可以帮助您更快地编写JavaScript代码。",
   "author": "wsvaio <wsvaio@qq.com>",
   "license": "MIT",
   "funding": "https://github.com/sponsors/wsvaio",
@@ -42,13 +42,12 @@
     "test": "vitest",
     "commit": "czg",
     "build": "esno ./scripts/index.ts && tsup",
-    "prepublishOnly": "pnpm build",
+    "prepublishOnly": "pnpm build && pnpm tsdoc",
     "log": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "lint:eslint": "eslint --cache --max-warnings 0  \"{src,mock}/**/*.{vue,ts,tsx}\" --fix",
     "lint:prettier": "prettier --write  \"src/**/*.{js,json,tsx,css,less,scss,vue,html,md}\"",
     "lint:lint-staged": "lint-staged",
-    "prepare": "simple-git-hooks",
-    "docs:preview": "vitepress preview docs"
+    "prepare": "simple-git-hooks"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.6.5",
