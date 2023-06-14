@@ -6,8 +6,7 @@
       "ESNext",
       "DOM"
     ],
-    "moduleResolution": "node",
-    "esModuleInterop": true,
+    "moduleResolution": "bundler",
     "noImplicitAny": false
   }
 }

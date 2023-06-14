@@ -2,35 +2,14 @@
 
 # @wsvaio/utils
 
-[![Size](https://img.shields.io/bundlephobia/minzip/@wsvaio/utils/latest)](https://www.npmjs.com/package/@wsvaio/utils)
-[![Version](https://img.shields.io/npm/v/@wsvaio/utils)](https://www.npmjs.com/package/@wsvaio/utils)
-[![Languages](https://img.shields.io/github/languages/top/wsvaio/utils)](https://www.npmjs.com/package/@wsvaio/utils)
-[![License](https://img.shields.io/npm/l/@wsvaio/utils)](https://www.npmjs.com/package/@wsvaio/utils)
-[![Star](https://img.shields.io/github/stars/wsvaio/utils)](https://github.com/wsvaio/utils)
-[![Download](https://img.shields.io/npm/dm/@wsvaio/utils)](https://www.npmjs.com/package/@wsvaio/utils)
+[![Size](https://img.shields.io/bundlephobia/minzip/@wsvaio/utils/latest)](https://www.npmjs.com/package/@wsvaio/utils) [![Version](https://img.shields.io/npm/v/@wsvaio/utils)](https://www.npmjs.com/package/@wsvaio/utils) [![Languages](https://img.shields.io/github/languages/top/wsvaio/utils)](https://www.npmjs.com/package/@wsvaio/utils) [![License](https://img.shields.io/npm/l/@wsvaio/utils)](https://www.npmjs.com/package/@wsvaio/utils) [![Star](https://img.shields.io/github/stars/wsvaio/utils)](https://github.com/wsvaio/utils) [![Download](https://img.shields.io/npm/dm/@wsvaio/utils)](https://www.npmjs.com/package/@wsvaio/utils)
 
 </center>
 
+@wsvaio/utils 库是一个为 JavaScript 开发人员设计的实用工具库，包含多个常用的实用函数和类型定义。
 
-# 常用utils
-- compressPicture: 图片压缩
-- createEventBus: 创建一个事件总线
-- debounce: 防抖
-- throttle: 节流
-- exitFullscreen: 退出全屏
-- filePicker: 选择文件
-- dateFormat: 日期格式化
-- timeFormat: 时间格式化
-- merge: 合并对象
-- omit: 选择对象属性，组合没有选择的返回
-- pick: 选择对象属性，组合并返回
-- Progress: 头部进度条
-- readAs: 读取文件
-- saveAs: 保存文件
-- download: 保存文件
-- sleep: 睡眠
-- to: 返回promise的正确和错误结果的组合
-- toTypeString：返回参数的类型 [object xxx]
-- toRawString：返回参数的类型，只返回类型部分 [object xxx] - xxx
-- is：判断数据类型
-- trying: 以promise运行传入的参数函数
+这些函数包括合成、压缩图片、创建事件处理程序、装饰器、遍历、错误重试、退出全屏、文件选择器、格式化、识别主题、判断类型、合并、对象转表单数据、忽略、选择、进度条、读取、运行函数、另存为、延迟、流程控制等。
+
+这个库旨在简化常见的编程任务，提高开发人员的生产力并减少代码错误。它可以与任何现代 JavaScript 项目一起使用，包括 React、Angular、Vue 和 Node.js 等。
+
+[document……](https://wsvaio.github.io/utils)

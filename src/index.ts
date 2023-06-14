@@ -3,6 +3,7 @@ export * from "./compressPicture";
 export * from "./createEventHandler";
 export * from "./decorator";
 export * from "./ergodic";
+export * from "./errorRetry";
 export * from "./exitFullscreen";
 export * from "./filePicker";
 export * from "./formats";
