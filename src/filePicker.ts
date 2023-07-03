@@ -1,5 +1,5 @@
 import { merge } from "./merge";
-import type { DeepPartial } from "./types";
+import type { DeepPartial } from "./types.d";
 
 // ios safair 浏览器中，必须将 input 添加到 真实的dom 中，onchange事件才会响应 在真实dom中，才会有 event.target
 

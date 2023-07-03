@@ -13,4 +13,4 @@ export type Writeable<T> = {
 /**
  * 将类型T中所有属性都变为可选属性
  */
-type DeepPartial<T> = T extends object ? { [P in keyof T]?: DeepPartial<T[P]> } : T;
+export type DeepPartial<T> = T extends object ? { [P in keyof T]?: DeepPartial<T[P]> } : T;

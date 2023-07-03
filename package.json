@@ -1,7 +1,7 @@
 {
   "name": "@wsvaio/utils",
   "type": "module",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "一个JavaScript工具库，它包含了许多通用的函数和工具，可以帮助您更快地编写JavaScript代码。",
   "author": "wsvaio <wsvaio@qq.com>",
   "license": "MIT",
@@ -41,7 +41,7 @@
   "scripts": {
     "test": "vitest",
     "commit": "pnpm docs:build && git add docs && czg",
-		"docs:build": "pnpm typedoc",
+    "docs:build": "pnpm typedoc",
     "build": "esno ./scripts/index.ts && tsup",
     "prepublishOnly": "pnpm build",
     "log": "conventional-changelog -p angular -i CHANGELOG.md -s",
