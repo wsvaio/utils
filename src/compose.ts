@@ -1,7 +1,7 @@
 /**
  * @typeparam Context 上下文类型。
  */
-export type Middleware<Context> = (ctx: Context, next: () => Promise<void>) => Promise<any>;
+export type Middleware<Context> = (ctx: Context, next: () => Promise<void>) => void | Promise<void>;
 
 /**
  * 中间件函数组合接口。
