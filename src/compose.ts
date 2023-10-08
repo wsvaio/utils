@@ -1,7 +1,7 @@
 /**
  * @typeparam Context 上下文类型。
  */
-export type Middleware<Context> = (ctx: Context, next: () => Promise<void>) => void | Promise<void>;
+export type Middleware<Context> = (ctx: Context, next: () => Promise<any>) => any | Promise<any>;
 
 /**
  * 中间件函数组合接口。
@@ -82,8 +82,9 @@ export const compose = <Context extends object = {}>(...initials: Middleware<Con
 		const next = async () => {
 			const fn = list[++i];
 			if (!fn) return;
-			await fn(ctx, next);
-			fn.length <= 1 && (await next());
+			let result = await fn(ctx, next);
+			fn.length <= 1 && (result ||= await next());
+			return result;
 		};
 		await next();
 		return ctx;

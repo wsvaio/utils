@@ -9,7 +9,7 @@
  * @typeParam K - 要挑选的属性名类型，必须是 `T` 中的键名。
  * @typeParam R - 挑选出的属性组成的新对象类型。
  */
-export const pick = <T extends Object, K extends keyof T>(obj: T, keys: K[], del = false) => {
+export const pick = <T extends object, K extends keyof T>(obj: T, keys: K[], del = false) => {
 	const result = <{ [P in K]: T[P] }>{};
 	for (const key of keys) {
 		result[key] = obj[key];

@@ -33,3 +33,22 @@ export type IsEqual<T, U> = (<T1>() => T1 extends T ? 1 : 2) extends <T2>() => T
  * 判断属性是否可选
  */
 export type IsOptional<O, K extends keyof O> = Partial<Pick<O, K>> extends Pick<O, K> ? true : false;
+
+/**
+ * 可JSON化基本类型
+ */
+export type JsonableBasic = number | boolean | string | null;
+/**
+ * 可JSON化对象类型
+ */
+export interface JsonableObj {
+	[key: string | number]: JsonableBasic | JsonableObj | JsonableArr;
+}
+/**
+ * 可JSON化数组类型
+ */
+export type JsonableArr = (JsonableBasic | JsonableObj | JsonableArr)[];
+/**
+ * 可JSON化类型
+ */
+export type Jsonable = JsonableBasic | JsonableObj | JsonableArr;
