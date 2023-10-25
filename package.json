@@ -1,7 +1,7 @@
 {
   "name": "@wsvaio/utils",
   "type": "module",
-  "version": "1.0.18-0",
+  "version": "1.0.18",
   "description": "一个JavaScript工具库，它包含了许多通用的函数和工具，可以帮助您更快地编写JavaScript代码。",
   "author": "wsvaio <wsvaio@qq.com>",
   "license": "MIT",
