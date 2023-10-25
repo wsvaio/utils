@@ -12,7 +12,6 @@ export class Progress {
 	private static css = `
     position: fixed;
     top: 0; left: 0;
-    z-index: 1000;
     pointer-events: none;
     width: 0%;
     transition: all 200ms ease 0s;
@@ -31,6 +30,7 @@ export class Progress {
 	 */
 	static height = "2px";
 
+	static zIndex = 1000;
 	/**
 	 * 进度条最大值。
 	 */
@@ -46,6 +46,7 @@ export class Progress {
 		this.el.style.cssText = Progress.css;
 		this.el.style.background = Progress.color;
 		this.el.style.height = Progress.height;
+		this.el.style.zIndex = String(Progress.zIndex);
 
 		document.body.append(this.el);
 		Progress.list.push(this);
