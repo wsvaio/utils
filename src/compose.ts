@@ -82,9 +82,8 @@ export const compose = <Context extends object = {}>(...initials: Middleware<Con
 		const next = async () => {
 			const fn = list[++i];
 			if (!fn) return;
-			let result = await fn(ctx, next);
-			fn.length <= 1 && (result ||= await next());
-			return result;
+			const result = await fn(ctx, next);
+			return (fn.length <= 1 && (await next())) || result;
 		};
 		await next();
 		return ctx;

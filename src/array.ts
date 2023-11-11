@@ -32,34 +32,29 @@ export const ergodic = <T>(
 	mode == "BFS" && ergodic(childrens, handle, { childrenKey, mode, deep });
 };
 /**
- * 遍历映射数组
- * @param array - 要遍历的数组或对象树。
+ * 递归遍历映射数组
+ * @param list - 要遍历的数组或对象树。
  * @param handle - 对每个元素执行的操作函数。
- * @param options - 可选参数对象，包含以下属性：
- *   - childrenKey - 对象树中子元素的键名，默认为 "children"。
  * @returns 一个新的数组或对象树。
  */
-export const map = <T, R>(
-	array: T[],
-	handle: (item: T) => R,
-	options?: {
-		childrenKey?: string;
-	}
-): R[] => {
-	let { childrenKey = "children" } = options || {};
-	const result: R[] = [];
-	for (const item of array) {
+export const map = <T extends { children?: T[] }, R extends { children?: R[] }>(
+	list: T[],
+	handle: (item: T) => Omit<R, "children"> & { children?: T[] }
+) => {
+	const result = [] as R[];
+	for (const item of list) {
 		const handled = handle(item);
-		if (Array.isArray(item[childrenKey]) && item[childrenKey]?.length > 0)
-			handled[childrenKey] = map(item[childrenKey], handle, { childrenKey });
-		result.push(handled);
+		if (Array.isArray(handled?.children) || Array.isArray(item?.children))
+			// @ts-expect-error pass
+			handled.children = map(handled.children || item?.children, handle);
+		result.push(handled as unknown as R);
 	}
 	return result;
 };
 
 /**
  * 遍历查找
- * @param array - 要查找的数组或对象树。
+ * @param list - 要查找的数组或对象树。
  * @param handle - 判断每个元素是否符合条件的操作函数。
  * @param options - 可选参数对象，包含以下属性：
  *   - deep - 遍历的深度，默认为 1。
@@ -68,7 +63,7 @@ export const map = <T, R>(
  * @returns 符合条件的元素，如果未找到，则返回 undefined。
  */
 export const find = <T>(
-	array: T[],
+	list: T[],
 	handle: (item: T) => unknown,
 	options?: {
 		deep?: number;
@@ -79,7 +74,7 @@ export const find = <T>(
 	let { childrenKey = "children", mode = "DFS", deep = 1 } = options || {};
 	deep--;
 	const childrens: T[] = [];
-	for (const item of array) {
+	for (const item of list) {
 		if (handle(item)) return item;
 		if (Array.isArray(item[childrenKey]) && item[childrenKey].length > 0 && deep > 0) {
 			if (mode == "DFS") {
