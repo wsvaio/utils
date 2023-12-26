@@ -1,11 +1,8 @@
 {
-  "*.{js,jsx,ts,tsx}": [
+  "*.{ts}": [
     "eslint --fix"
   ],
-  "*.json": [
-    "prettier --write--parser json"
-  ],
-  "*.md": [
+  "*.{json,md}": [
     "prettier --write"
   ]
 }

@@ -6,14 +6,11 @@
  * @param encoding 仅适用于文本格式。指定编码以将二进制数据转换为文本数据。
  * @returns 返回一个 Promise，该 Promise 将解析为转换后的数据。
  */
-export const readAs = <T = string | ArrayBuffer | null>(
-	as: "ArrayBuffer" | "BinaryString" | "DataURL" | "Text",
-	blob: Blob,
-	encoding?: string
-) =>
-	new Promise<T>((resolve, reject) => {
-		const reader = new FileReader();
-		reader.onload = () => resolve(<T>reader.result);
-		reader.onerror = e => reject(e);
-		reader[`readAs${as}`](blob, encoding);
-	});
+export function readAs<T = string | ArrayBuffer | null>(as: "ArrayBuffer" | "BinaryString" | "DataURL" | "Text",	blob: Blob,	encoding?: string) {
+  return new Promise<T>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(<T>reader.result);
+    reader.onerror = e => reject(e);
+    reader[`readAs${as}`](blob, encoding);
+  });
+}

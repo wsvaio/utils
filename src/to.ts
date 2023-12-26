@@ -5,8 +5,9 @@
  * @param fn 要转换的 Promise 对象。
  * @returns 一个元组，包含错误和数据。
  */
-export const to = <T>(fn: Promise<T>) =>
-	fn.then(data => <[null, T]>[null, data]).catch(err => <[Error, null]>[err, null]);
+export function to<T>(fn: Promise<T>) {
+  return fn.then(data => <[null, T]>[null, data]).catch(err => <[Error, null]>[err, null]);
+}
 
 /**
  * 获取一个值的类型字符串。

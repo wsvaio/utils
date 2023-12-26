@@ -7,7 +7,7 @@ export type ValueOf<T> = T[keyof T];
  * 将类型T中所有属性都变为可写属性
  */
 export type Writeable<T> = {
-	-readonly [K in keyof T]: T[K];
+  -readonly [K in keyof T]: T[K];
 };
 
 /**
@@ -42,7 +42,7 @@ export type JsonableBasic = number | boolean | string | null;
  * 可JSON化对象类型
  */
 export interface JsonableObj {
-	[key: string | number]: JsonableBasic | JsonableObj | JsonableArr;
+  [key: string | number]: JsonableBasic | JsonableObj | JsonableArr;
 }
 /**
  * 可JSON化数组类型

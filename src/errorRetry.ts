@@ -10,16 +10,13 @@ import { sleep } from "./sleep";
  *
  * @returns 一个 Promise，当操作成功时会被解析，当达到最大重试次数时会被拒绝。
  */
-export const errorRetry = async (
-	handle: () => Promise<any>,
-	options = {} as { count?: number; time?: number },
-) => {
-	const { count = 3, time = 3000 } = options;
-	await sleep(time);
-	await handle().catch(error => {
-		if (count <= 1)
-			return Promise.reject(error);
-		else
-			return errorRetry(handle, { count: count - 1, time });
-	});
-};
+export async function errorRetry(handle: () => Promise<any>,	options = {} as { count?: number; time?: number }) {
+  const { count = 3, time = 3000 } = options;
+  await sleep(time);
+  await handle().catch(error => {
+    if (count <= 1)
+      return Promise.reject(error);
+    else
+      return errorRetry(handle, { count: count - 1, time });
+  });
+}

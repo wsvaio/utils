@@ -9,11 +9,11 @@
  * @typeParam K - 要删除的属性名类型，必须是 `T` 中的键名。
  * @typeParam R - 删除指定属性后的新对象类型。
  */
-export const omit = <T extends object, K extends keyof T>(obj: T, keys: K[], del = false) => {
-	const result = <{ [P in Exclude<keyof T, K>]: T[P] }>{};
-	for (const key of Object.keys(obj).filter(key => !keys.includes(key as K))) {
-		result[key] = obj[key];
-		del && delete obj[key];
-	}
-	return result;
-};
+export function omit<T extends object, K extends keyof T>(obj: T, keys: K[], del = false) {
+  const result = <{ [P in Exclude<keyof T, K>]: T[P] }>{};
+  for (const key of Object.keys(obj).filter(key => !keys.includes(key as K))) {
+    result[key] = obj[key];
+    del && delete obj[key];
+  }
+  return result;
+}

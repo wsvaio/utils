@@ -14,18 +14,14 @@ export const trying = async <T>(fn: () => T) => await fn();
  * @param finallyCallBack 函数执行完毕后的回调函数。
  * @returns 函数执行的结果。
  */
-export const tryingSync = <T>(
-	tryCallBack: () => T,
-	catchCallBack?: (error: unknown) => any,
-	finallyCallBack?: () => any
-) => {
-	try {
-		return tryCallBack();
-	}
-	catch (error) {
-		catchCallBack && catchCallBack(error);
-	}
-	finally {
-		finallyCallBack && finallyCallBack();
-	}
-};
+export function tryingSync<T>(tryCallBack: () => T,	catchCallBack?: (error: unknown) => any,	finallyCallBack?: () => any) {
+  try {
+    return tryCallBack();
+  }
+  catch (error) {
+    catchCallBack && catchCallBack(error);
+  }
+  finally {
+    finallyCallBack && finallyCallBack();
+  }
+}
