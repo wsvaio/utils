@@ -15,6 +15,7 @@ export * from "./omit";
 export * from "./pick";
 export * from "./Progress";
 export * from "./readAs";
+export * from "./resolveArticleTitles";
 export * from "./runFunctions";
 export * from "./saveAs";
 export * from "./sleep";

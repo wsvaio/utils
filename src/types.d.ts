@@ -52,3 +52,20 @@ export type JsonableArr = (JsonableBasic | JsonableObj | JsonableArr)[];
  * 可JSON化类型
  */
 export type Jsonable = JsonableBasic | JsonableObj | JsonableArr;
+
+// 递归拿key，x.x.x……
+export type DeepKeys<T extends Record<any, any>, K = keyof T> = K extends string
+  ? T[K] extends object
+    ? K | `${K}.${DeepKeys<T[K]>}`
+    : K
+  : never;
+
+// 递归pick类型
+export type DeepPick<T extends Record<any, any>, K extends DeepKeys<T>> = UnionToIntersection<
+  K extends `${infer Pre}.${infer Post}` ? { [Key in Pre]: DeepPick<T[Pre], Post> } : { [Key in K]: T[Key] }
+>;
+
+// 递归omit类型
+export type DeepOmit<T extends Record<any, any>, K extends DeepKeys<T>> = UnionToIntersection<
+K extends `${infer Pre}.${infer Post}` ? { [Key in Pre]: DeepOmit<T[Pre], Post> } : never
+> & { [Key in Exclude<keyof T, K | (K extends `${infer Pre}.${infer _}` ? Pre : never)>]: T[Key] };
