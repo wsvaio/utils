@@ -54,11 +54,23 @@ export type JsonableArr = (JsonableBasic | JsonableObj | JsonableArr)[];
 export type Jsonable = JsonableBasic | JsonableObj | JsonableArr;
 
 // 递归拿key，x.x.x……
-export type DeepKeys<T extends Record<any, any>, K = keyof T> = K extends string
-  ? T[K] extends object
-    ? K | `${K}.${DeepKeys<T[K]>}`
-    : K
-  : never;
+// export type DeepKeys<T extends Record<any, any>, K = keyof T> = K extends string
+//   ? T[K] extends object
+//     ? K | `${K}.${DeepKeys<T[K]>}`
+//     : K
+//   : never;
+
+export type DeepKeys<T extends Record<any, any>> = T extends Array<any>
+  ? never
+  : {
+      [k in keyof T]: k extends string
+        ? T[k] extends Record<any, any>
+          ? T[k] extends Array<any>
+            ? k
+            : k | `${k}.${DeepKeys<T[k]>}`
+          : k
+        : never;
+    }[keyof T];
 
 // 递归pick类型
 export type DeepPick<T extends Record<any, any>, K extends DeepKeys<T>> = UnionToIntersection<
